@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive demonstration of 2x2 matrix multiplication.">
+  <title>Matrix Multiplication | 2x2 Demo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="demo">
+    <header class="intro">
+      <p class="eyebrow">A visual walkthrough</p>
+      <h1>Multiply two matrices</h1>
+      <p class="description">Matrix multiplication takes the dot product of a row from A with a column from B.</p>
+    </header>
+
+    <section class="workspace" aria-label="2 by 2 matrix multiplication">
+      <div class="matrix-group">
+        <h2>Matrix A</h2>
+        <div class="matrix" aria-label="Matrix A">
+          <input class="matrix-input" type="number" step="any" value="1" aria-label="A row 1, column 1" data-matrix="a" data-row="0" data-col="0">
+          <input class="matrix-input" type="number" step="any" value="2" aria-label="A row 1, column 2" data-matrix="a" data-row="0" data-col="1">
+          <input class="matrix-input" type="number" step="any" value="3" aria-label="A row 2, column 1" data-matrix="a" data-row="1" data-col="0">
+          <input class="matrix-input" type="number" step="any" value="4" aria-label="A row 2, column 2" data-matrix="a" data-row="1" data-col="1">
+        </div>
+      </div>
+
+      <span class="operator" aria-hidden="true">&times;</span>
+
+      <div class="matrix-group">
+        <h2>Matrix B</h2>
+        <div class="matrix" aria-label="Matrix B">
+          <input class="matrix-input" type="number" step="any" value="5" aria-label="B row 1, column 1" data-matrix="b" data-row="0" data-col="0">
+          <input class="matrix-input" type="number" step="any" value="6" aria-label="B row 1, column 2" data-matrix="b" data-row="0" data-col="1">
+          <input class="matrix-input" type="number" step="any" value="7" aria-label="B row 2, column 1" data-matrix="b" data-row="1" data-col="0">
+          <input class="matrix-input" type="number" step="any" value="8" aria-label="B row 2, column 2" data-matrix="b" data-row="1" data-col="1">
+        </div>
+      </div>
+
+      <span class="operator equals" aria-hidden="true">=</span>
+
+      <div class="matrix-group result-group">
+        <h2>Result C</h2>
+        <div class="matrix result-matrix" aria-label="Result matrix C">
+          <button class="result-cell" type="button" data-row="0" data-col="0" aria-label="C row 1, column 1" aria-pressed="true"></button>
+          <button class="result-cell" type="button" data-row="0" data-col="1" aria-label="C row 1, column 2" aria-pressed="false"></button>
+          <button class="result-cell" type="button" data-row="1" data-col="0" aria-label="C row 2, column 1" aria-pressed="false"></button>
+          <button class="result-cell" type="button" data-row="1" data-col="1" aria-label="C row 2, column 2" aria-pressed="false"></button>
+        </div>
+        <button class="next-calculation" id="next-calculation" type="button">Next Calculation</button>
+      </div>
+    </section>
+
+    <section class="calculation" aria-live="polite" aria-atomic="true">
+      <p class="calculation-label">Selected calculation</p>
+      <p class="formula" id="formula"></p>
+      <p class="substitution" id="substitution"></p>
+    </section>
+  </main>
+</body>
+</html>

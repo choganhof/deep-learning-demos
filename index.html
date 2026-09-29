@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="An interactive demonstration of 2x2 matrix multiplication.">
-  <title>Matrix Multiplication | 2x2 Demo</title>
+  <meta name="description" content="Interactive matrix multiplication and neural network layer demonstrations.">
+  <title>Matrix Multiplication | Interactive Demo</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
@@ -12,51 +12,160 @@
   <main class="demo">
     <header class="intro">
       <p class="eyebrow">A visual walkthrough</p>
-      <h1>Multiply two matrices</h1>
-      <p class="description">Matrix multiplication takes the dot product of a row from A with a column from B.</p>
+      <h1 id="page-title">Multiply two matrices</h1>
+      <p class="description" id="page-description">Matrix multiplication takes the dot product of a row from A with a column from B.</p>
+      <label class="mode-picker">
+        <span>Walkthrough</span>
+        <select id="mode-select" aria-label="Choose a walkthrough">
+          <option value="matrix">2x2 Matrix Multiplication</option>
+          <option value="layer">Neural Network Layer</option>
+        </select>
+      </label>
     </header>
 
-    <section class="workspace" aria-label="2 by 2 matrix multiplication">
-      <div class="matrix-group">
-        <h2>Matrix A</h2>
-        <div class="matrix" aria-label="Matrix A">
-          <input class="matrix-input" type="number" step="any" value="1" aria-label="A row 1, column 1" data-matrix="a" data-row="0" data-col="0">
-          <input class="matrix-input" type="number" step="any" value="2" aria-label="A row 1, column 2" data-matrix="a" data-row="0" data-col="1">
-          <input class="matrix-input" type="number" step="any" value="3" aria-label="A row 2, column 1" data-matrix="a" data-row="1" data-col="0">
-          <input class="matrix-input" type="number" step="any" value="4" aria-label="A row 2, column 2" data-matrix="a" data-row="1" data-col="1">
+    <section id="matrix-mode" class="demo-mode">
+      <section class="workspace" aria-label="2 by 2 matrix multiplication">
+        <div class="matrix-group">
+          <h2>Matrix A</h2>
+          <div class="matrix" aria-label="Matrix A">
+            <input class="matrix-input" type="number" step="any" value="1" aria-label="A row 1, column 1" data-matrix="a" data-row="0" data-col="0">
+            <input class="matrix-input" type="number" step="any" value="2" aria-label="A row 1, column 2" data-matrix="a" data-row="0" data-col="1">
+            <input class="matrix-input" type="number" step="any" value="3" aria-label="A row 2, column 1" data-matrix="a" data-row="1" data-col="0">
+            <input class="matrix-input" type="number" step="any" value="4" aria-label="A row 2, column 2" data-matrix="a" data-row="1" data-col="1">
+          </div>
         </div>
-      </div>
 
-      <span class="operator" aria-hidden="true">&times;</span>
+        <span class="operator" aria-hidden="true">&times;</span>
 
-      <div class="matrix-group">
-        <h2>Matrix B</h2>
-        <div class="matrix" aria-label="Matrix B">
-          <input class="matrix-input" type="number" step="any" value="5" aria-label="B row 1, column 1" data-matrix="b" data-row="0" data-col="0">
-          <input class="matrix-input" type="number" step="any" value="6" aria-label="B row 1, column 2" data-matrix="b" data-row="0" data-col="1">
-          <input class="matrix-input" type="number" step="any" value="7" aria-label="B row 2, column 1" data-matrix="b" data-row="1" data-col="0">
-          <input class="matrix-input" type="number" step="any" value="8" aria-label="B row 2, column 2" data-matrix="b" data-row="1" data-col="1">
+        <div class="matrix-group">
+          <h2>Matrix B</h2>
+          <div class="matrix" aria-label="Matrix B">
+            <input class="matrix-input" type="number" step="any" value="5" aria-label="B row 1, column 1" data-matrix="b" data-row="0" data-col="0">
+            <input class="matrix-input" type="number" step="any" value="6" aria-label="B row 1, column 2" data-matrix="b" data-row="0" data-col="1">
+            <input class="matrix-input" type="number" step="any" value="7" aria-label="B row 2, column 1" data-matrix="b" data-row="1" data-col="0">
+            <input class="matrix-input" type="number" step="any" value="8" aria-label="B row 2, column 2" data-matrix="b" data-row="1" data-col="1">
+          </div>
         </div>
-      </div>
 
-      <span class="operator equals" aria-hidden="true">=</span>
+        <span class="operator equals" aria-hidden="true">=</span>
 
-      <div class="matrix-group result-group">
-        <h2>Result C</h2>
-        <div class="matrix result-matrix" aria-label="Result matrix C">
-          <button class="result-cell" type="button" data-row="0" data-col="0" aria-label="C row 1, column 1" aria-pressed="true"></button>
-          <button class="result-cell" type="button" data-row="0" data-col="1" aria-label="C row 1, column 2" aria-pressed="false"></button>
-          <button class="result-cell" type="button" data-row="1" data-col="0" aria-label="C row 2, column 1" aria-pressed="false"></button>
-          <button class="result-cell" type="button" data-row="1" data-col="1" aria-label="C row 2, column 2" aria-pressed="false"></button>
+        <div class="matrix-group result-group">
+          <h2>Result C</h2>
+          <div class="matrix result-matrix" aria-label="Result matrix C">
+            <button class="result-cell" type="button" data-row="0" data-col="0" aria-label="C row 1, column 1" aria-pressed="true"></button>
+            <button class="result-cell" type="button" data-row="0" data-col="1" aria-label="C row 1, column 2" aria-pressed="false"></button>
+            <button class="result-cell" type="button" data-row="1" data-col="0" aria-label="C row 2, column 1" aria-pressed="false"></button>
+            <button class="result-cell" type="button" data-row="1" data-col="1" aria-label="C row 2, column 2" aria-pressed="false"></button>
+          </div>
+          <button class="next-calculation" id="next-calculation" type="button">Next Calculation</button>
         </div>
-        <button class="next-calculation" id="next-calculation" type="button">Next Calculation</button>
-      </div>
+      </section>
+
+      <section class="calculation" aria-live="polite" aria-atomic="true">
+        <p class="calculation-label">Selected calculation</p>
+        <p class="formula" id="formula"></p>
+        <p class="substitution" id="substitution"></p>
+      </section>
     </section>
 
-    <section class="calculation" aria-live="polite" aria-atomic="true">
-      <p class="calculation-label">Selected calculation</p>
-      <p class="formula" id="formula"></p>
-      <p class="substitution" id="substitution"></p>
+    <section id="layer-mode" class="layer-mode" aria-label="Neural network layer" hidden>
+      <section class="dimension-guide" aria-label="Matrix dimensions">
+        <p class="dimension-equation" aria-label="2 by 3 multiplied by 3 by 1 gives 2 by 1">
+          <span class="dimension-pair"><span class="dimension-count outer-dimension">2</span><span>&times;</span><span class="dimension-count inner-dimension">3</span></span>
+          <span class="dimension-times">&times;</span>
+          <span class="dimension-pair"><span class="dimension-count inner-dimension">3</span><span>&times;</span><span class="dimension-count outer-dimension">1</span></span>
+          <span class="dimension-arrow">&rarr;</span>
+          <span class="dimension-pair output-dimension"><span class="dimension-count outer-dimension">2</span><span>&times;</span><span class="dimension-count outer-dimension">1</span></span>
+        </p>
+        <div class="dimension-notes">
+          <p><span class="dimension-key inner-key">Inner dimensions</span> <strong>3 = 3</strong> must match.</p>
+          <p><span class="dimension-key outer-key">Outer dimensions</span> <strong>2 &times; 1</strong> set the output shape.</p>
+        </div>
+      </section>
+
+      <section class="layer-flow" aria-label="Layer inputs and intermediate results">
+        <div class="matrix-group layer-group">
+          <h2>Weights W</h2>
+          <div class="matrix matrix-three-columns" aria-label="Weight matrix W, 2 by 3">
+            <input class="matrix-input layer-input" type="number" step="any" value="0.5" aria-label="W row 1, column 1" data-layer-matrix="w" data-row="0" data-col="0">
+            <input class="matrix-input layer-input" type="number" step="any" value="1.0" aria-label="W row 1, column 2" data-layer-matrix="w" data-row="0" data-col="1">
+            <input class="matrix-input layer-input" type="number" step="any" value="-0.5" aria-label="W row 1, column 3" data-layer-matrix="w" data-row="0" data-col="2">
+            <input class="matrix-input layer-input" type="number" step="any" value="2.0" aria-label="W row 2, column 1" data-layer-matrix="w" data-row="1" data-col="0">
+            <input class="matrix-input layer-input" type="number" step="any" value="-1.0" aria-label="W row 2, column 2" data-layer-matrix="w" data-row="1" data-col="1">
+            <input class="matrix-input layer-input" type="number" step="any" value="0.25" aria-label="W row 2, column 3" data-layer-matrix="w" data-row="1" data-col="2">
+          </div>
+        </div>
+
+        <span class="operator layer-operator" aria-hidden="true">&times;</span>
+
+        <div class="matrix-group layer-group">
+          <h2>Input x</h2>
+          <div class="matrix matrix-one-column" aria-label="Input vector x, 3 by 1">
+            <input class="matrix-input layer-input" type="number" step="any" value="2" aria-label="x row 1" data-layer-matrix="x" data-row="0" data-col="0">
+            <input class="matrix-input layer-input" type="number" step="any" value="-1" aria-label="x row 2" data-layer-matrix="x" data-row="1" data-col="0">
+            <input class="matrix-input layer-input" type="number" step="any" value="3" aria-label="x row 3" data-layer-matrix="x" data-row="2" data-col="0">
+          </div>
+        </div>
+
+        <span class="operator layer-operator" aria-hidden="true">=</span>
+
+        <div class="derived-flow" aria-label="Intermediate result plus bias equals pre-activation">
+          <div class="matrix-group layer-group">
+            <h2>Wx</h2>
+            <div class="matrix matrix-one-column" aria-label="Intermediate result Wx">
+              <span class="layer-value" data-layer-output="wx" data-row="0"></span>
+              <span class="layer-value" data-layer-output="wx" data-row="1"></span>
+            </div>
+          </div>
+
+          <span class="operator layer-operator" aria-hidden="true">+</span>
+
+          <div class="matrix-group layer-group">
+            <h2>Bias b</h2>
+            <div class="matrix matrix-one-column" aria-label="Bias vector b, 2 by 1">
+              <input class="matrix-input layer-input" type="number" step="any" value="0.5" aria-label="b row 1" data-layer-matrix="b" data-row="0" data-col="0">
+              <input class="matrix-input layer-input" type="number" step="any" value="-0.75" aria-label="b row 2" data-layer-matrix="b" data-row="1" data-col="0">
+            </div>
+          </div>
+
+          <span class="operator layer-operator">=</span>
+
+          <div class="matrix-group layer-group">
+            <h2>Pre-activation z</h2>
+            <div class="matrix matrix-one-column" aria-label="Pre-activation vector z">
+              <span class="layer-value" data-layer-output="z" data-row="0"></span>
+              <span class="layer-value" data-layer-output="z" data-row="1"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="activation-panel" aria-label="Activation function and result">
+        <div class="activation-controls">
+          <label for="activation-select">Activation function</label>
+          <select id="activation-select">
+            <option value="sigmoid">Sigmoid</option>
+            <option value="tanh">Tanh</option>
+          </select>
+          <p class="activation-definition" id="activation-definition"></p>
+        </div>
+        <span class="operator activation-operator" aria-hidden="true">&rarr;</span>
+        <div class="matrix-group layer-group activation-result">
+          <h2>Activation a</h2>
+          <div class="matrix matrix-one-column" aria-label="Activation output vector a">
+            <span class="layer-value" data-layer-output="a" data-row="0"></span>
+            <span class="layer-value" data-layer-output="a" data-row="1"></span>
+          </div>
+        </div>
+      </section>
+
+      <button class="next-calculation layer-next" id="layer-next" type="button">Next Calculation</button>
+
+      <section class="calculation layer-calculation" aria-live="polite" aria-atomic="true">
+        <p class="calculation-label" id="layer-step-label">Forward pass</p>
+        <p class="formula" id="layer-formula"></p>
+        <p class="substitution" id="layer-substitution"></p>
+      </section>
     </section>
   </main>
 </body>
